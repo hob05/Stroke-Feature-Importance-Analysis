@@ -1,6 +1,5 @@
         #### Format Data ####
         
-library(installr)
 library(caret)
 library(tidyverse)
 library(tidymodels)
@@ -16,7 +15,6 @@ NA_num / nrow(db) # only 3.93% of the data is missing so I will omit instead of 
 db <- db %>%
   mutate(bmi = as.numeric(replace(bmi, bmi == "N/A", NA))) %>%  # Replace "N/A" with NA and convert to numeric
   drop_na(bmi)  # Remove rows with NA in BMI   
-
 
 set.seed(123)
 db_shuf <- db[sample(1:nrow(db)),]
@@ -113,7 +111,6 @@ stroke_cm$byClass
 
 
     #### Feature Importance ####
-
 var_imp <- varImp(db_trn_rf)  # Assuming db_trn_rf is your trained model
 print(var_imp)
 
@@ -124,7 +121,6 @@ cor(db_trn_num[, c("age", "avg_glucose_level", "hypertension", "bmi")]) # no red
 
 
     #### ROC Curve #### 
-
 db_probs <- predict(db_trn_rf, db_tst_smote, type = "prob")
 
 roc_curve <- roc(db_tst_smote$stroke, db_probs[, 2])
