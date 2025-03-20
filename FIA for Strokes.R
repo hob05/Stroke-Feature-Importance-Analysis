@@ -1,7 +1,3 @@
-# data set created by user "fedesoriano" on Kaggle: https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset
-
-# TO DO: FIX IMBALANCING SO THAT THE CALIBRATION AND MCNEMAR ARE BETTER. DO THIS VIA SMOTE AND WHATEVER THE FUCK CHATGPT MADE 
-
         #### Format Data ####
         
 library(installr)
@@ -141,13 +137,6 @@ db_tst_smote$stroke <- as.numeric(as.character(db_tst_smote$stroke))
 
 pr_curve <- pr.curve(scores.class0 = db_probs[, 2], weights.class0 = db_tst_smote$stroke, curve = TRUE)
 plot(pr_curve) # AUC = 0.9877343
-
-
-    #### Model Calibration Curve ####
-db_tst_smote$stroke <- as.factor(db_tst_smote$stroke)
-
-cal_curve <- calibration(db_tst_smote$stroke ~ db_probs[, 2], bins = 10)
-plot(cal_curve) # Model is highly poorly calibrated so I need to adjust this
 
 
 
